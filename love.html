@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Portal💗</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .container {
+      padding: 20px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .profile-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin: 20px auto;
+      background-image: url('https://i.imgur.com/GAeNJQM.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.5rem;
+    }
+
+    button, input {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button {
+      background: linear-gradient(to right, #fc466b, #3f5efb);
+      color: white;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: #ff2f92;
+      text-shadow: 0 0 8px #ff2f92, 0 0 16px #ff2f92;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50px, -100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .diary {
+      background: white;
+      margin: 20px auto;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 500px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .diary h2 {
+      color: #e91e63;
+    }
+
+    .diary p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    #image-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    #display-img {
+      max-width: 95%;
+      max-height: 85%;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 4px solid #fff;
+    }
+
+    #backBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #ff4081;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://files.catbox.moe/pj6rj4.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Floating Emoji Hearts -->
+  <div class="hearts" id="heartContainer"></div>
+
+  <div class="container">
+    <div class="profile-img"></div>
+    <h1>Future Portal 💗</h1>
+
+    <button onclick="window.open('https://instagram.com/leafxb4n', '_blank')">Instagram 🙃</button>
+    <button onclick="window.open('https://instagram.com/r1yan_x', '_blank')">Instagram 🎀</button>
+
+    <div id="login-section">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Log In</button>
+    </div>
+
+    <div id="admin-options" class="hidden">
+      <h2>Future 💗</h2>
+      <button onclick="showImage('https://i.imgur.com/5JAA7Kr.jpeg')">Wifeyy 🎀</button>
+      <button onclick="showImage('https://i.imgur.com/6UvhqkJ.jpeg')">Husband 🫠</button>
+      <button onclick="showProduct()">Product 😋🌚</button>
+    </div>
+
+    <div class="diary" id="diary">
+      <h2>Couple Diary 💞</h2>
+      <p>Wifeyy 🎀: "Tum meri zindagi ka woh pal ho jo har roz dil ko sukoon deta hai 💖"</p>
+      <p>Husband 🫠: "Tere saath bitaye lamhe hi toh meri duniya hai 🌍"</p>
+      <p>Shayari: "Ishq likha tha taqdeer mein... Milna tumhara zaroori tha 💘"</p>
+      <p>"Har roz tera chehra meri subah ban jata hai, aur tera naam meri dua 🌹"</p>
+    </div>
+  </div>
+
+  <div id="image-viewer">
+    <img id="display-img" src="" alt="Full view"/>
+    <button id="backBtn" onclick="hideImage()">Back</button>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      if (username === "anuhxram" && password === "anuhxram") {
+        document.getElementById("login-section").classList.add("hidden");
+        document.getElementById("admin-options").classList.remove("hidden");
+      } else {
+        alert("Incorrect credentials!");
+      }
+    }
+
+    function showImage(src) {
+      document.getElementById("display-img").src = src;
+      document.getElementById("image-viewer").style.display = "flex";
+      document.getElementById("diary").style.display = "none";
+    }
+
+    function hideImage() {
+      document.getElementById("image-viewer").style.display = "none";
+      document.getElementById("display-img").src = "";
+      document.getElementById("diary").style.display = "block";
+    }
+
+    function showProduct() {
+      hideImage();
+      alert("Future Planning 🌚");
+    }
+
+    // Neon 💗 emoji floating hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = "💗";
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = Math.random() * 100 + 'vh';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.getElementById('heartContainer').appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+
+<!-- Surprise Birthday Modal -->
+<div id="birthdayModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; justify-content:center; align-items:center; flex-direction:column; color:white; text-align:center; font-size:1.5rem; padding:20px;">
+  <h2 id="bdayTitle" style="color: #ff69b4; font-size: 2.2rem;">🎂 Happy Birthday! 💖</h2>
+  <p id="bdayMessage"></p>
+  <button onclick="document.getElementById('birthdayModal').style.display='none'" style="margin-top:20px; padding:10px 20px; background:#ff69b4; border:none; border-radius:8px; color:white; font-size:1rem;">Close</button>
+</div>
+
+<script>
+  function showBirthdayMessage(title, message) {
+    document.getElementById('bdayTitle').innerText = title;
+    document.getElementById('bdayMessage').innerText = message;
+    document.getElementById('birthdayModal').style.display = 'flex';
+  }
+
+  function checkBirthdays() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1; // JS months start from 0
+
+    if (day === 18 && month === 1) {
+      showBirthdayMessage("🎂 Happy Birthday Wifeyy 🎀", "Tum meri zindagi ka sabse khoobsurat hissa ho 💖 Aaj tumhara din hai, aur main hamesha tumse mohabbat karta rahunga 💌");
+    } else if (day === 20 && month === 6) {
+      showBirthdayMessage("🎂 Happy Birthday Husband 🫠", "Mere dil ka raaz ho tum 💞 Har saal tumhara janamdin mere liye ek nayi khushi lekar aata hai ❤️ I love you!");
+    }
+  }
+
+  checkBirthdays();
+</script>
+
+<!-- Countdown Timer -->
+<div id="countdownContainer" style="position:fixed; top:10px; right:10px; background:rgba(255,255,255,0.8); padding:10px 20px; border-radius:8px; font-size:1rem; color:#e91e63; z-index:999;">
+  <strong>Next Birthday Countdown:</strong>
+  <div id="countdown"></div>
+</div>
+
+<!-- Confetti Canvas -->
+<canvas id="confettiCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:9998; pointer-events:none;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  function getNextBirthdayDate(month, day) {
+    const now = new Date();
+    let year = now.getFullYear();
+    const birthday = new Date(year, month - 1, day);
+    if (birthday < now) {
+      birthday.setFullYear(year + 1);
+    }
+    return birthday;
+  }
+
+  function getClosestBirthday() {
+    const today = new Date();
+    const wifeyBday = getNextBirthdayDate(1, 18);
+    const husbandBday = getNextBirthdayDate(6, 20);
+    return (wifeyBday - today < husbandBday - today) ? wifeyBday : husbandBday;
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const nextBday = getClosestBirthday();
+    const distance = nextBday - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / 1000 / 60) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    document.getElementById("countdown").innerText =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+    setTimeout(updateCountdown, 1000);
+  }
+
+  function triggerConfetti() {
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function () {
+      const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+      confetti(Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0, 1), y: Math.random() - 0.2 }
+      }));
+    }, 250);
+  }
+
+  function checkBirthdaysEnhanced() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+
+    if (day === 18 && month === 1) {
+      showBirthdayMessage("🎂 Happy Birthday Wifeyy 🎀", "Tum meri zindagi ka sabse khoobsurat hissa ho 💖 Aaj tumhara din hai, aur main hamesha tumse mohabbat karta rahunga 💌");
+      triggerConfetti();
+    } else if (day === 20 && month === 6) {
+      showBirthdayMessage("🎂 Happy Birthday Husband 🫠", "Mere dil ka raaz ho tum 💞 Har saal tumhara janamdin mere liye ek nayi khushi lekar aata hai ❤️ I love you!");
+      triggerConfetti();
+    }
+  }
+
+  updateCountdown();
+  checkBirthdaysEnhanced();
+</script>
+</body>
+
+
+</html>
